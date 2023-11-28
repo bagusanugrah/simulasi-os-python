@@ -76,6 +76,8 @@ def mkdir(parent_dir, nama_directory):
                                 content_dict['jam_update'] = date_time.strftime("%m/%d/%Y")
                                 content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
+                    return print('Folder berhasil dibuat')
+
 
 def cd(dir_path, current_dir=''):
     if dir_path == '.':
@@ -96,8 +98,11 @@ def cd(dir_path, current_dir=''):
         for i in range(len(dir)):
             if dir[i].lower() == dir_path.lower():
                 return dir_path
-            else:
+            if dir[i].lower() == f'{current_dir}\\{dir_path}'.lower():
                 return f'{current_dir}\\{dir_path}'
+            if dir[i].lower() != f'{current_dir}\\{dir_path}'.lower() and i == len(dir)-1:
+                print(f'Folder {dir_path} tidak ada!')
+                return current_dir
         
 def show_all(current_dir):
     # print('current:', current_dir)
@@ -186,8 +191,8 @@ commands = [
 ]
 
 def main():
-    prosesPOST()
-    startingOS()
+    # prosesPOST()
+    # startingOS()
     standByCMD()
 
 main()
