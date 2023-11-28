@@ -40,36 +40,74 @@ def mkdir(parent_dir, nama_directory):
     }
 
     for i in range(len(dir)):
-        if dir[i] == parent_dir:
-            dir_content[i].append(new_dir)
+        if dir[i].lower() == parent_dir.lower():
             for content_dict in dir_content[i]:
-                if content_dict['path'] == f"{kembaliKeParentDir(parent_dir, '.')}\\.":
-                    content_dict['jam_update'] = date_time.strftime("%m/%d/%Y")
-                    content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                if content_dict['nama'].lower() == nama_directory.lower():
+                    print('content:',content_dict['nama'].lower())
+                    print('nama:', nama_directory.lower())
+                    return print('Folder sudah ada!')
+                else:
+                    dir_content[i].append(new_dir)
+                    dir.append(new_dir['path'])
+                    dir_content.append([
+                        {
+                            'path': f'{parent_dir}\\.',
+                            'nama': '.',
+                            'jenis': '<DIR>',
+                            'jam_update': date_time.strftime("%m/%d/%Y"),
+                            'tgl_update': date_time.strftime("%m/%d/%Y")
+                        },
+                        {
+                            'path': f'{parent_dir}\\..',
+                            'nama': '..',
+                            'jenis': '<DIR>',
+                            'jam_update': date_time.strftime("%m/%d/%Y"),
+                            'tgl_update': date_time.strftime("%m/%d/%Y")
+                        }
+                    ])
+                    for content_dict in dir_content[i]:
+                        if content_dict['path'].lower() == f"{kembaliKeParentDir(parent_dir, '.')}\\.".lower():
+                            content_dict['jam_update'] = date_time.strftime("%m/%d/%Y")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
-        if dir[i] == kembaliKeParentDir(new_dir['path'], '..'):
+                    if dir[i] == kembaliKeParentDir(new_dir['path'], '..'):
+                        for content_dict in dir_content[i]:
+                            if content_dict['path'].lower() == parent_dir.lower():
+                                content_dict['jam_update'] = date_time.strftime("%m/%d/%Y")
+                                content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+
+
+def cd(dir_path, current_dir=''):
+    if dir_path == '.':
+        parent_dir = kembaliKeParentDir(current_dir, '.')
+        for i in range(len(dir)):
+            if dir[i].lower() == parent_dir.lower():
+                return dir[i]
+            else:
+                return current_dir
+    elif dir_path == '..':
+        parent_dir = kembaliKeParentDir(current_dir, '..')
+        for i in range(len(dir)):
+            if dir[i].lower() == parent_dir.lower():
+                return dir[i]
+            else:
+                return current_dir
+    else:
+        for i in range(len(dir)):
+            if dir[i].lower() == dir_path.lower():
+                return dir_path
+            else:
+                return f'{current_dir}\\{dir_path}'
+        
+def show_all(current_dir):
+    # print('current:', current_dir)
+    for i in range(len(dir)):
+        if dir[i].lower() == current_dir.lower():
+            # print('dir ke i:',dir[i])
             for content_dict in dir_content[i]:
-                if content_dict['path'] == parent_dir:
-                    content_dict['jam_update'] = date_time.strftime("%m/%d/%Y")
-                    content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
-
-    dir.append(new_dir['path'])
-    dir_content.append([
-        {
-            'path': f'{parent_dir}\\.',
-            'nama': '.',
-            'jenis': '<DIR>',
-            'jam_update': date_time.strftime("%m/%d/%Y"),
-            'tgl_update': date_time.strftime("%m/%d/%Y")
-        },
-        {
-            'path': f'{parent_dir}\\..',
-            'nama': '..',
-            'jenis': '<DIR>',
-            'jam_update': date_time.strftime("%m/%d/%Y"),
-            'tgl_update': date_time.strftime("%m/%d/%Y")
-        }
-    ])
+                print(f"{content_dict['tgl_update']}  {content_dict['jam_update']}  {content_dict['jenis']}  {content_dict['nama']}")
+    
+    print()
 
 def showOSInfo(dict):
     print(f"{dict['name']} v{dict['version']}")
@@ -127,11 +165,25 @@ def standByCMD():
     print()
 
     perintah = ''
-    while perintah == '':
+    while True:
         print(f'{current_dir}>', end='')
         perintah = input()
 
         parsedInput = list(perintah.split(' '))
+
+        if parsedInput[0].lower() == 'cd':
+            current_dir = cd(parsedInput[1], current_dir)
+        elif parsedInput[0].lower() == 'dir':
+            show_all(current_dir)
+        elif parsedInput[0].lower() == 'mkdir':
+            mkdir(current_dir, parsedInput[1])
+
+commands = [
+    {
+        'name': 'mkdir',
+        'function': mkdir
+    }
+]
 
 def main():
     prosesPOST()
