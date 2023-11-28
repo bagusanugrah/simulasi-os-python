@@ -72,7 +72,7 @@ def mkdir(parent_dir, nama_directory):
                     content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                     content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
-            return print(f'Folder {nama_directory} berhasil dibuat')
+                    return print(f'Folder {nama_directory} berhasil dibuat')
 
 
 def cd(dir_path, current_dir=''):
