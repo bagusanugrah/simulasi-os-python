@@ -35,7 +35,7 @@ def mkdir(parent_dir, nama_directory):
         'path': f'{parent_dir}\\{nama_directory}',
         'nama': nama_directory,
         'jenis': '<DIR>',
-        'jam_update': date_time.strftime("%m/%d/%Y"),
+        'jam_update': date_time.strftime("%I:%M %p"),
         'tgl_update': date_time.strftime("%m/%d/%Y")
     }
 
@@ -54,26 +54,26 @@ def mkdir(parent_dir, nama_directory):
                             'path': f'{parent_dir}\\.',
                             'nama': '.',
                             'jenis': '<DIR>',
-                            'jam_update': date_time.strftime("%m/%d/%Y"),
+                            'jam_update': date_time.strftime("%I:%M %p"),
                             'tgl_update': date_time.strftime("%m/%d/%Y")
                         },
                         {
                             'path': f'{parent_dir}\\..',
                             'nama': '..',
                             'jenis': '<DIR>',
-                            'jam_update': date_time.strftime("%m/%d/%Y"),
+                            'jam_update': date_time.strftime("%I:%M %p"),
                             'tgl_update': date_time.strftime("%m/%d/%Y")
                         }
                     ])
                     for content_dict in dir_content[i]:
                         if content_dict['path'].lower() == f"{kembaliKeParentDir(parent_dir, '.')}\\.".lower():
-                            content_dict['jam_update'] = date_time.strftime("%m/%d/%Y")
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
                     if dir[i] == kembaliKeParentDir(new_dir['path'], '..'):
                         for content_dict in dir_content[i]:
                             if content_dict['path'].lower() == parent_dir.lower():
-                                content_dict['jam_update'] = date_time.strftime("%m/%d/%Y")
+                                content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                                 content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
                     return print('Folder berhasil dibuat')
@@ -105,10 +105,8 @@ def cd(dir_path, current_dir=''):
                 return current_dir
         
 def show_all(current_dir):
-    # print('current:', current_dir)
     for i in range(len(dir)):
         if dir[i].lower() == current_dir.lower():
-            # print('dir ke i:',dir[i])
             for content_dict in dir_content[i]:
                 print(f"{content_dict['tgl_update']}  {content_dict['jam_update']}  {content_dict['jenis']}  {content_dict['nama']}")
     
