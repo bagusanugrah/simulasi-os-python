@@ -67,7 +67,7 @@ def mkdir(parent_dir, nama_directory):
                     content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                     content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
-            if dir[i] == kembaliKeParentDir(new_dir['path'], '..'):
+            if dir[i].lower() == kembaliKeParentDir(new_dir['path'], '..').lower():
                 for content_dict in dir_content[i]:
                     if content_dict['path'].lower() == parent_dir.lower():
                         content_dict['jam_update'] = date_time.strftime("%I:%M %p")
