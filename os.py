@@ -14,14 +14,12 @@ def kembaliKeParentDir(current_dir, letak_parent):
     splittedString = list(current_dir.split('\\'))
     parent_dir = ''
     current_dir_name = splittedString[len(splittedString)-1]
-    parent_dir_name = splittedString[len(splittedString)-2]
 
     if letak_parent == '.':
-        splitted_dir = list(current_dir.split(f'\\{current_dir_name}'))
-        parent_dir = splitted_dir[0]
+        parent_dir = current_dir
 
     if letak_parent == '..':
-        splitted_dir = list(current_dir.split(f'\\{parent_dir_name}\\{current_dir_name}'))
+        splitted_dir = list(current_dir.split(f'\\{current_dir_name}'))
         parent_dir = splitted_dir[0]
 
     return parent_dir
@@ -67,13 +65,14 @@ def mkdir(parent_dir, nama_directory):
                     content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                     content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
-            if dir[i].lower() == kembaliKeParentDir(new_dir['path'], '..').lower():
-                for content_dict in dir_content[i]:
-                    if content_dict['path'].lower() == parent_dir.lower():
-                        content_dict['jam_update'] = date_time.strftime("%I:%M %p")
-                        content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+    for i in range(len(dir)):
+        if dir[i].lower() == kembaliKeParentDir(parent_dir, '..').lower():
+            for content_dict in dir_content[i]:
+                if content_dict['path'].lower() == parent_dir.lower():
+                    content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                    content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
-            return print('Folder berhasil dibuat')
+            return print(f'Folder {nama_directory} berhasil dibuat')
 
 
 def cd(dir_path, current_dir=''):
@@ -82,15 +81,13 @@ def cd(dir_path, current_dir=''):
         for i in range(len(dir)):
             if dir[i].lower() == parent_dir.lower():
                 return dir[i]
-            else:
-                return current_dir
+        return current_dir
     elif dir_path == '..':
         parent_dir = kembaliKeParentDir(current_dir, '..')
         for i in range(len(dir)):
             if dir[i].lower() == parent_dir.lower():
                 return dir[i]
-            else:
-                return current_dir
+        return current_dir
     else:
         for i in range(len(dir)):
             if dir[i].lower() == dir_path.lower():
