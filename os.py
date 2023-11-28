@@ -1,80 +1,30 @@
 import os
 import calendar
 import datetime
+import database
 from time import sleep, gmtime
 
-perangkatKeras = ['RAM', 'Harddisk Drive', 'CD ROM Drive', 'USB Port']
+perangkatKeras = database.getPerangkatKeras()
+osInfo = database.getOSInfo()
+users = database.getUsers()
+dir = database.getDirectory()
+dir_content = database.get_dir_content()
 
-osInfo = {
-    'name': 'BGS OS',
-    'version': 1.0,
-    'company': 'BGS Corporation'
-}
+def kembaliKeParentDir(current_dir, letak_parent):
+    splittedString = list(current_dir.split('\\'))
+    parent_dir = ''
+    current_dir_name = splittedString[len(splittedString)-1]
+    parent_dir_name = splittedString[len(splittedString)-2]
 
-users = ['Anugrah']
+    if letak_parent == '.':
+        splitted_dir = list(current_dir.split(f'\\{current_dir_name}'))
+        parent_dir = splitted_dir[0]
 
-dir = [
-    f'C:\\Users\\{users[0]}',
-    f'C:\\Users\\{users[0]}\\Desktop',
-    f'C:\\Users\\{users[0]}\\Documents',
-    f'C:\\Users\\{users[0]}\\Downloads',
-    f'C:\\Users\\{users[0]}\\Music',
-    f'C:\\Users\\{users[0]}\\Pictures',
-    f'C:\\Users\\{users[0]}\\Videos'
-]
+    if letak_parent == '..':
+        splitted_dir = list(current_dir.split(f'\\{parent_dir_name}\\{current_dir_name}'))
+        parent_dir = splitted_dir[0]
 
-dir_content = [
-    [
-        {
-            'path': f'C:\\Users\\{users[0]}\\Desktop',
-            'nama': 'Desktop',
-            'jenis': '<DIR>',
-            'jam_update': '07:28 PM',
-            'tgl_update': '11/04/2023'
-        },
-        {
-            'path': f'C:\\Users\\{users[0]}\\Documents',
-            'nama': 'Documents',
-            'jenis': '<DIR>',
-            'jam_update': '11:35 AM',
-            'tgl_update': '11/21/2023'
-        },
-        {
-            'path': f'C:\\Users\\{users[0]}\\Downloads',
-            'nama': 'Downloads',
-            'jenis': '<DIR>',
-            'jam_update': '05:12 AM',
-            'tgl_update': '11/27/2023'
-        },
-        {
-            'path': f'C:\\Users\\{users[0]}\\Music',
-            'nama': 'Music',
-            'jenis': '<DIR>',
-            'jam_update': ' 09:21 AM',
-            'tgl_update': '11/08/2023'
-        },
-        {
-            'path': f'C:\\Users\\{users[0]}\\Pictures',
-            'nama': 'Pictures',
-            'jenis': '<DIR>',
-            'jam_update': '10:15 AM',
-            'tgl_update': '11/24/2023'
-        },
-        {
-            'path': f'C:\\Users\\{users[0]}\\Videos',
-            'nama': 'Videos',
-            'jenis': '<DIR>',
-            'jam_update': '10:13 AM',
-            'tgl_update': '11/26/2023'
-        }
-    ],
-    [],
-    [],
-    [],
-    [],
-    [],
-    []
-]
+    return parent_dir
 
 def mkdir(parent_dir, nama_directory):
     current_GMT = gmtime()
@@ -92,12 +42,34 @@ def mkdir(parent_dir, nama_directory):
     for i in range(len(dir)):
         if dir[i] == parent_dir:
             dir_content[i].append(new_dir)
+            for content_dict in dir_content[i]:
+                if content_dict['path'] == f"{kembaliKeParentDir(parent_dir, '.')}\\.":
+                    content_dict['jam_update'] = date_time.strftime("%m/%d/%Y")
+                    content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+
+        if dir[i] == kembaliKeParentDir(new_dir['path'], '..'):
+            for content_dict in dir_content[i]:
+                if content_dict['path'] == parent_dir:
+                    content_dict['jam_update'] = date_time.strftime("%m/%d/%Y")
+                    content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
     dir.append(new_dir['path'])
-    dir_content.append([])
-
-
-
+    dir_content.append([
+        {
+            'path': f'{parent_dir}\\.',
+            'nama': '.',
+            'jenis': '<DIR>',
+            'jam_update': date_time.strftime("%m/%d/%Y"),
+            'tgl_update': date_time.strftime("%m/%d/%Y")
+        },
+        {
+            'path': f'{parent_dir}\\..',
+            'nama': '..',
+            'jenis': '<DIR>',
+            'jam_update': date_time.strftime("%m/%d/%Y"),
+            'tgl_update': date_time.strftime("%m/%d/%Y")
+        }
+    ])
 
 def showOSInfo(dict):
     print(f"{dict['name']} v{dict['version']}")
@@ -132,7 +104,7 @@ def prosesPOST():
             print(f'{spasi}{j}%', end='\r')
             sleep(0.5)
         print(f'{spasi}    ', end='')
-        print('OK', end='')
+        print('OK')
     sleep(2)
     os.system('cls')
 
@@ -155,7 +127,7 @@ def standByCMD():
     print()
 
     perintah = ''
-    while perintah != '':
+    while perintah == '':
         print(f'{current_dir}>', end='')
         perintah = input()
 
