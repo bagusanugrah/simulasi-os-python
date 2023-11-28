@@ -43,40 +43,37 @@ def mkdir(parent_dir, nama_directory):
         if dir[i].lower() == parent_dir.lower():
             for content_dict in dir_content[i]:
                 if content_dict['nama'].lower() == nama_directory.lower():
-                    print('content:',content_dict['nama'].lower())
-                    print('nama:', nama_directory.lower())
                     return print('Folder sudah ada!')
-                else:
-                    dir_content[i].append(new_dir)
-                    dir.append(new_dir['path'])
-                    dir_content.append([
-                        {
-                            'path': f'{parent_dir}\\.',
-                            'nama': '.',
-                            'jenis': '<DIR>',
-                            'jam_update': date_time.strftime("%I:%M %p"),
-                            'tgl_update': date_time.strftime("%m/%d/%Y")
-                        },
-                        {
-                            'path': f'{parent_dir}\\..',
-                            'nama': '..',
-                            'jenis': '<DIR>',
-                            'jam_update': date_time.strftime("%I:%M %p"),
-                            'tgl_update': date_time.strftime("%m/%d/%Y")
-                        }
-                    ])
-                    for content_dict in dir_content[i]:
-                        if content_dict['path'].lower() == f"{kembaliKeParentDir(parent_dir, '.')}\\.".lower():
-                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
-                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+            dir_content[i].append(new_dir)
+            dir.append(new_dir['path'])
+            dir_content.append([
+                {
+                    'path': f'{parent_dir}\\.',
+                    'nama': '.',
+                    'jenis': '<DIR>',
+                    'jam_update': date_time.strftime("%I:%M %p"),
+                    'tgl_update': date_time.strftime("%m/%d/%Y")
+                },
+                {
+                    'path': f'{parent_dir}\\..',
+                    'nama': '..',
+                    'jenis': '<DIR>',
+                    'jam_update': date_time.strftime("%I:%M %p"),
+                    'tgl_update': date_time.strftime("%m/%d/%Y")
+                }
+            ])
+            for content_dict in dir_content[i]:
+                if content_dict['path'].lower() == f"{kembaliKeParentDir(parent_dir, '.')}\\.".lower():
+                    content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                    content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
-                    if dir[i] == kembaliKeParentDir(new_dir['path'], '..'):
-                        for content_dict in dir_content[i]:
-                            if content_dict['path'].lower() == parent_dir.lower():
-                                content_dict['jam_update'] = date_time.strftime("%I:%M %p")
-                                content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+            if dir[i] == kembaliKeParentDir(new_dir['path'], '..'):
+                for content_dict in dir_content[i]:
+                    if content_dict['path'].lower() == parent_dir.lower():
+                        content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                        content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
-                    return print('Folder berhasil dibuat')
+            return print('Folder berhasil dibuat')
 
 
 def cd(dir_path, current_dir=''):
