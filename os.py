@@ -80,6 +80,87 @@ def mkdir(parent_dir, nama_directory):
 
                     return print(f'Folder {nama_directory} berhasil dibuat')
 
+def rename(target_rename, nama_baru, current_dir=''):
+    global dir
+    global dir_content
+    for i in range(len(dir)):
+        if dir[i].lower() == target_rename.lower():
+            for i in range(len(dir)):
+                if dir[i].lower() == target_rename.lower():
+                    dir[i] = f'{current_dir}\\{nama_baru}'
+            for i in range(len(dir)):
+                if dir[i].lower() == kembaliKeParentDir(target_rename, '..').lower():
+                    for content_dict in dir_content[i]:
+                        if content_dict['path'].lower() == f'{target_rename}'.lower():
+                            current_GMT = gmtime()
+                            timestamp = calendar.timegm(current_GMT)
+                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            content_dict['path'] = f'{current_dir}\\{nama_baru}'
+                            content_dict['nama'] = nama_baru
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                    for content_dict in dir_content[i]:
+                        if content_dict['path'].lower() == f'{dir[i]}\\.'.lower():
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                            dir_ada = False
+                            for i in range(len(dir)):
+                                if dir[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
+                                    dir_ada = True
+                            if not dir_ada:
+                                return print('Rename file/folder berhasil')
+            for i in range(len(dir)):
+                if dir[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
+                    for content_dict in dir_content[i]:
+                        if content_dict['path'].lower() == current_dir.lower():
+                            current_GMT = gmtime()
+                            timestamp = calendar.timegm(current_GMT)
+                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                            return print('Rename file/folder berhasil')
+        if dir[i].lower() == f'{current_dir}\\{target_rename}'.lower():
+            for i in range(len(dir)):
+                if dir[i].lower() == f'{current_dir}\\{target_rename}'.lower():
+                    dir[i] = f'{current_dir}\\{nama_baru}'
+            for i in range(len(dir)):
+                if dir[i].lower() == kembaliKeParentDir(f'{current_dir}\\{target_rename}', '..').lower():
+                    for content_dict in dir_content[i]:
+                        if content_dict['path'].lower() == f'{current_dir}\\{target_rename}'.lower():
+                            current_GMT = gmtime()
+                            timestamp = calendar.timegm(current_GMT)
+                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            content_dict['path'] = f'{current_dir}\\{nama_baru}'
+                            content_dict['nama'] = nama_baru
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                    for content_dict in dir_content[i]:
+                        if content_dict['path'].lower() == f'{dir[i]}\\.'.lower():
+                            current_GMT = gmtime()
+                            timestamp = calendar.timegm(current_GMT)
+                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                            dir_ada = False
+                            for i in range(len(dir)):
+                                if dir[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
+                                    dir_ada = True
+                            if not dir_ada:
+                                return print('Rename file/folder berhasil')
+            for i in range(len(dir)):
+                if dir[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
+                    for content_dict in dir_content[i]:
+                        if content_dict['path'].lower() == current_dir.lower():
+                            current_GMT = gmtime()
+                            timestamp = calendar.timegm(current_GMT)
+                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                            return print('Rename file/folder berhasil')
+        if dir[i].lower() != f'{current_dir}\\{target_rename}'.lower() and i == len(dir)-1:
+            print(f'Folder {target_rename} tidak ada!')
+            return current_dir
+
 def delete(target_hapus, current_dir=''):
     dir_baru = []
     dir_content_baru = []
@@ -267,6 +348,8 @@ def standByCMD():
             show_all(current_dir)
         elif parsedInput[0].lower() == 'mkdir':
             mkdir(current_dir, parsedInput[1])
+        elif parsedInput[0].lower() == 'rename':
+            rename(parsedInput[1], parsedInput[2], current_dir)
         elif parsedInput[0].lower() == 'delete':
             delete(parsedInput[1], current_dir)
 
