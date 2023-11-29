@@ -10,6 +10,10 @@ users = database.getUsers()
 dir = database.getDirectory()
 dir_content = database.get_dir_content()
 
+current_GMT = gmtime()
+timestamp = calendar.timegm(current_GMT)
+date_time = datetime.datetime.fromtimestamp(timestamp)
+
 def kembaliKeParentDir(current_dir, letak_parent):
     splittedString = list(current_dir.split('\\'))
     parent_dir = ''
@@ -25,10 +29,6 @@ def kembaliKeParentDir(current_dir, letak_parent):
     return parent_dir
 
 def mkdir(parent_dir, nama_directory):
-    current_GMT = gmtime()
-    timestamp = calendar.timegm(current_GMT)
-    date_time = datetime.datetime.fromtimestamp(timestamp)
-
     new_dir = {
         'path': f'{parent_dir}\\{nama_directory}',
         'nama': nama_directory,
@@ -74,6 +74,79 @@ def mkdir(parent_dir, nama_directory):
 
                     return print(f'Folder {nama_directory} berhasil dibuat')
 
+def delete(target_hapus, current_dir=''):
+    dir_baru = []
+    dir_content_baru = []
+    global dir
+    global dir_content
+    for i in range(len(dir)):
+        if dir[i].lower() == target_hapus.lower():
+            for i in range(len(dir)):
+                if dir[i].lower() != target_hapus.lower():
+                    dir_baru.append(dir[i])
+            for i in range(len(dir)):
+                content = []
+                for content_dict in dir_content[i]:
+                    if content_dict['path'].lower() != target_hapus.lower():
+                        content.append(content_dict)
+                dir_content_baru.append(content)
+            for i in range(len(dir_baru)):
+                if dir_baru[i].lower() == kembaliKeParentDir(target_hapus, '..').lower():
+                    for content_dict in dir_content_baru[i]:
+                        if content_dict['path'].lower() == f'{dir_baru[i]}\\.'.lower():
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                            dir_ada = False
+                            for i in range(len(dir_baru)):
+                                if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
+                                    dir_ada = True
+                            if not dir_ada:
+                                dir = dir_baru
+                                dir_content = dir_content_baru
+                                return print('Hapus file/folder berhasil')
+                if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
+                    for content_dict in dir_content_baru[i]:
+                        if content_dict['path'].lower() == current_dir.lower():
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                            dir = dir_baru
+                            dir_content = dir_content_baru
+                            return print('Hapus file/folder berhasil')
+        if dir[i].lower() == f'{current_dir}\\{target_hapus}'.lower():
+            for i in range(len(dir)):
+                if dir[i].lower() != f'{current_dir}\\{target_hapus}'.lower():
+                    dir_baru.append(dir[i])
+            for i in range(len(dir)):
+                content = []
+                for content_dict in dir_content[i]:
+                    if content_dict['path'].lower() != f'{current_dir}\\{target_hapus}'.lower():
+                        content.append(content_dict)
+                dir_content_baru.append(content)
+            for i in range(len(dir_baru)):
+                if dir_baru[i].lower() == kembaliKeParentDir(f'{current_dir}\\{target_hapus}', '..').lower():
+                    for content_dict in dir_content_baru[i]:
+                        if content_dict['path'].lower() == f'{dir_baru[i]}\\.'.lower():
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                            dir_ada = False
+                            for i in range(len(dir_baru)):
+                                if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
+                                    dir_ada = True
+                            if not dir_ada:
+                                dir = dir_baru
+                                dir_content = dir_content_baru
+                                return print('Hapus file/folder berhasil')
+                if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
+                    for content_dict in dir_content_baru[i]:
+                        if content_dict['path'].lower() == current_dir.lower():
+                            content_dict['jam_update'] = date_time.strftime("%I:%M %p")
+                            content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
+                            dir = dir_baru
+                            dir_content = dir_content_baru
+                            return print('Hapus file/folder berhasil')
+        if dir[i].lower() != f'{current_dir}\\{target_hapus}'.lower() and i == len(dir)-1:
+            print(f'Folder {target_hapus} tidak ada!')
+            return current_dir
 
 def cd(dir_path, current_dir=''):
     if dir_path == '.':
@@ -174,6 +247,8 @@ def standByCMD():
             show_all(current_dir)
         elif parsedInput[0].lower() == 'mkdir':
             mkdir(current_dir, parsedInput[1])
+        elif parsedInput[0].lower() == 'delete':
+            delete(parsedInput[1], current_dir)
 
 commands = [
     {
