@@ -21,7 +21,16 @@ def time(timestamp=''):
         return datetime.datetime.fromtimestamp(timestamp)
     else:
         return datetime.datetime.now(pytz.timezone(zona))
-    
+
+def showtime():
+    current_GMT = gmtime()
+    timestamp = calendar.timegm(current_GMT)
+    date_time = time(timestamp)
+    timenow = date_time.strftime("%I:%M %p")
+    datenow = date_time.strftime("%m/%d/%Y")
+
+    print(f'{datenow}   {timenow}')
+
 def change_timezone():
     global zona
 
@@ -416,6 +425,8 @@ def standByCMD():
             sistem_nyala = shutdown()
         elif parsedInput[0].lower() == 'showspec':
             showSpec()
+        elif parsedInput[0].lower() == 'showtime':
+            showtime()
         elif parsedInput[0].lower() == 'changetime':
             change_timezone()
 
