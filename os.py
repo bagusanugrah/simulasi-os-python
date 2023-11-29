@@ -337,6 +337,17 @@ def startingOS():
             sleep(0.5)
     os.system('cls')
 
+def shutdown():
+    os.system('cls')
+    for i in range(4):
+        stringTampil = 'Shutting down the system'
+        print(f'{stringTampil}   ', end='\r')
+        for j in range(4):
+            print(stringTampil, end='\r')
+            stringTampil = stringTampil + '.'
+            sleep(0.5)
+    return False
+
 def standByCMD():
     current_dir = dir[0]
     parsedInput = []
@@ -345,8 +356,8 @@ def standByCMD():
     showOSInfo(osInfo)
     print()
 
-    perintah = ''
-    while True:
+    sistem_nyala = True
+    while sistem_nyala:
         print(f'{current_dir}>', end='')
         perintah = input()
 
@@ -362,6 +373,8 @@ def standByCMD():
             rename(parsedInput[1], parsedInput[2], current_dir)
         elif parsedInput[0].lower() == 'delete':
             delete(parsedInput[1], current_dir)
+        elif parsedInput[0].lower() == 'shutdown':
+            sistem_nyala = shutdown()
 
 commands = [
     {
