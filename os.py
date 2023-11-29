@@ -88,6 +88,11 @@ def rename(target_rename, nama_baru, current_dir=''):
             for i in range(len(dir)):
                 if dir[i].lower() == target_rename.lower():
                     dir[i] = f'{current_dir}\\{nama_baru}'
+                    for content_dict in dir_content[i]:
+                        if content_dict['path'].lower() == f'{target_rename}\\.'.lower():
+                            content_dict['path'] = f'{current_dir}\\{nama_baru}\\.'
+                        if content_dict['path'].lower() == f'{target_rename}\\..'.lower():
+                            content_dict['path'] = f'{current_dir}\\{nama_baru}\\..'
             for i in range(len(dir)):
                 if dir[i].lower() == kembaliKeParentDir(target_rename, '..').lower():
                     for content_dict in dir_content[i]:
@@ -123,6 +128,11 @@ def rename(target_rename, nama_baru, current_dir=''):
             for i in range(len(dir)):
                 if dir[i].lower() == f'{current_dir}\\{target_rename}'.lower():
                     dir[i] = f'{current_dir}\\{nama_baru}'
+                    for content_dict in dir_content[i]:
+                        if content_dict['path'].lower() == f'{current_dir}\\{target_rename}\\.'.lower():
+                            content_dict['path'] = f'{current_dir}\\{nama_baru}\\.'
+                        if content_dict['path'].lower() == f'{current_dir}\\{target_rename}\\..'.lower():
+                            content_dict['path'] = f'{current_dir}\\{nama_baru}\\..'
             for i in range(len(dir)):
                 if dir[i].lower() == kembaliKeParentDir(f'{current_dir}\\{target_rename}', '..').lower():
                     for content_dict in dir_content[i]:
