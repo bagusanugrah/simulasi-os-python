@@ -1,15 +1,42 @@
 import os
 import calendar
 import datetime
+import pytz
 import database
 from time import sleep, gmtime
 
+zonawaktu = database.getTimezone()
 spesifikasi = database.getSpesifikasi()
 perangkatKeras = database.getPerangkatKeras()
 osInfo = database.getOSInfo()
 users = database.getUsers()
 dir = database.getDirectory()
 dir_content = database.get_dir_content()
+
+zona = 'default'
+
+def time(timestamp=''):
+    global zona
+    if zona == 'default':
+        return datetime.datetime.fromtimestamp(timestamp)
+    else:
+        return datetime.datetime.now(pytz.timezone(zona))
+    
+def change_timezone():
+    global zona
+
+    for i in range(len(zonawaktu)):
+        print(f'{i+1}. {zonawaktu[i]}')
+    
+    inputan_zona = input('Masukkan zona waktu [1-27]: ')
+
+    print()
+    for i in range(len(zonawaktu)):
+        if inputan_zona == str(i):
+            zona = zonawaktu[i]
+            return print('Zona waktu berhasil diganti')
+    
+    print(f'Inputan salah! {inputan_zona} bukan angka dari list zona waktu!')
 
 def kembaliKeParentDir(current_dir, letak_parent):
     splittedString = list(current_dir.split('\\'))
@@ -28,7 +55,7 @@ def kembaliKeParentDir(current_dir, letak_parent):
 def mkdir(parent_dir, nama_directory):
     current_GMT = gmtime()
     timestamp = calendar.timegm(current_GMT)
-    date_time = datetime.datetime.fromtimestamp(timestamp)
+    date_time = time(timestamp)
 
     new_dir = {
         'path': f'{parent_dir}\\{nama_directory}',
@@ -65,7 +92,7 @@ def mkdir(parent_dir, nama_directory):
                 if content_dict['path'].lower() == f"{kembaliKeParentDir(parent_dir, '.')}\\.".lower():
                     current_GMT = gmtime()
                     timestamp = calendar.timegm(current_GMT)
-                    date_time = datetime.datetime.fromtimestamp(timestamp)
+                    date_time = time(timestamp)
                     content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                     content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
@@ -75,7 +102,7 @@ def mkdir(parent_dir, nama_directory):
                 if content_dict['path'].lower() == parent_dir.lower():
                     current_GMT = gmtime()
                     timestamp = calendar.timegm(current_GMT)
-                    date_time = datetime.datetime.fromtimestamp(timestamp)
+                    date_time = time(timestamp)
                     content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                     content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
@@ -100,7 +127,7 @@ def rename(target_rename, nama_baru, current_dir=''):
                         if content_dict['path'].lower() == f'{target_rename}'.lower():
                             current_GMT = gmtime()
                             timestamp = calendar.timegm(current_GMT)
-                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            date_time = time(timestamp)
                             content_dict['path'] = f'{current_dir}\\{nama_baru}'
                             content_dict['nama'] = nama_baru
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
@@ -121,7 +148,7 @@ def rename(target_rename, nama_baru, current_dir=''):
                         if content_dict['path'].lower() == current_dir.lower():
                             current_GMT = gmtime()
                             timestamp = calendar.timegm(current_GMT)
-                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            date_time = time(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             return print('Rename file/folder berhasil')
@@ -140,7 +167,7 @@ def rename(target_rename, nama_baru, current_dir=''):
                         if content_dict['path'].lower() == f'{current_dir}\\{target_rename}'.lower():
                             current_GMT = gmtime()
                             timestamp = calendar.timegm(current_GMT)
-                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            date_time = time(timestamp)
                             content_dict['path'] = f'{current_dir}\\{nama_baru}'
                             content_dict['nama'] = nama_baru
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
@@ -149,7 +176,7 @@ def rename(target_rename, nama_baru, current_dir=''):
                         if content_dict['path'].lower() == f'{dir[i]}\\.'.lower():
                             current_GMT = gmtime()
                             timestamp = calendar.timegm(current_GMT)
-                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            date_time = time(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir_ada = False
@@ -164,7 +191,7 @@ def rename(target_rename, nama_baru, current_dir=''):
                         if content_dict['path'].lower() == current_dir.lower():
                             current_GMT = gmtime()
                             timestamp = calendar.timegm(current_GMT)
-                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            date_time = time(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             return print('Rename file/folder berhasil')
@@ -194,7 +221,7 @@ def delete(target_hapus, current_dir=''):
                         if content_dict['path'].lower() == f'{dir_baru[i]}\\.'.lower():
                             current_GMT = gmtime()
                             timestamp = calendar.timegm(current_GMT)
-                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            date_time = time(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir_ada = False
@@ -211,7 +238,7 @@ def delete(target_hapus, current_dir=''):
                         if content_dict['path'].lower() == current_dir.lower():
                             current_GMT = gmtime()
                             timestamp = calendar.timegm(current_GMT)
-                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            date_time = time(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir = dir_baru
@@ -233,7 +260,7 @@ def delete(target_hapus, current_dir=''):
                         if content_dict['path'].lower() == f'{dir_baru[i]}\\.'.lower():
                             current_GMT = gmtime()
                             timestamp = calendar.timegm(current_GMT)
-                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            date_time = time(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir_ada = False
@@ -250,7 +277,7 @@ def delete(target_hapus, current_dir=''):
                         if content_dict['path'].lower() == current_dir.lower():
                             current_GMT = gmtime()
                             timestamp = calendar.timegm(current_GMT)
-                            date_time = datetime.datetime.fromtimestamp(timestamp)
+                            date_time = time(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir = dir_baru
@@ -389,6 +416,8 @@ def standByCMD():
             sistem_nyala = shutdown()
         elif parsedInput[0].lower() == 'showspec':
             showSpec()
+        elif parsedInput[0].lower() == 'changetime':
+            change_timezone()
 
 commands = [
     {

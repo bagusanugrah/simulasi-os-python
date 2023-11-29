@@ -1,3 +1,14 @@
+def getTimezone():
+    gmt = []
+
+    for i in range(13):
+        gmt.append(f'Etc/GMT+{i}')
+    
+    for i in range(15):
+        gmt.append(f'Etc/GMT-{i}')
+
+    return gmt
+
 def getSpesifikasi():
     return {
         'Motherboard': 'Asus H110M-K',
