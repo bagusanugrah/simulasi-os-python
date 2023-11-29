@@ -10,10 +10,6 @@ users = database.getUsers()
 dir = database.getDirectory()
 dir_content = database.get_dir_content()
 
-current_GMT = gmtime()
-timestamp = calendar.timegm(current_GMT)
-date_time = datetime.datetime.fromtimestamp(timestamp)
-
 def kembaliKeParentDir(current_dir, letak_parent):
     splittedString = list(current_dir.split('\\'))
     parent_dir = ''
@@ -29,6 +25,10 @@ def kembaliKeParentDir(current_dir, letak_parent):
     return parent_dir
 
 def mkdir(parent_dir, nama_directory):
+    current_GMT = gmtime()
+    timestamp = calendar.timegm(current_GMT)
+    date_time = datetime.datetime.fromtimestamp(timestamp)
+    
     new_dir = {
         'path': f'{parent_dir}\\{nama_directory}',
         'nama': nama_directory,
@@ -62,6 +62,9 @@ def mkdir(parent_dir, nama_directory):
             ])
             for content_dict in dir_content[i]:
                 if content_dict['path'].lower() == f"{kembaliKeParentDir(parent_dir, '.')}\\.".lower():
+                    current_GMT = gmtime()
+                    timestamp = calendar.timegm(current_GMT)
+                    date_time = datetime.datetime.fromtimestamp(timestamp)
                     content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                     content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
@@ -69,6 +72,9 @@ def mkdir(parent_dir, nama_directory):
         if dir[i].lower() == kembaliKeParentDir(parent_dir, '..').lower():
             for content_dict in dir_content[i]:
                 if content_dict['path'].lower() == parent_dir.lower():
+                    current_GMT = gmtime()
+                    timestamp = calendar.timegm(current_GMT)
+                    date_time = datetime.datetime.fromtimestamp(timestamp)
                     content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                     content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
 
@@ -94,6 +100,9 @@ def delete(target_hapus, current_dir=''):
                 if dir_baru[i].lower() == kembaliKeParentDir(target_hapus, '..').lower():
                     for content_dict in dir_content_baru[i]:
                         if content_dict['path'].lower() == f'{dir_baru[i]}\\.'.lower():
+                            current_GMT = gmtime()
+                            timestamp = calendar.timegm(current_GMT)
+                            date_time = datetime.datetime.fromtimestamp(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir_ada = False
@@ -107,6 +116,9 @@ def delete(target_hapus, current_dir=''):
                 if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
                     for content_dict in dir_content_baru[i]:
                         if content_dict['path'].lower() == current_dir.lower():
+                            current_GMT = gmtime()
+                            timestamp = calendar.timegm(current_GMT)
+                            date_time = datetime.datetime.fromtimestamp(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir = dir_baru
@@ -126,6 +138,9 @@ def delete(target_hapus, current_dir=''):
                 if dir_baru[i].lower() == kembaliKeParentDir(f'{current_dir}\\{target_hapus}', '..').lower():
                     for content_dict in dir_content_baru[i]:
                         if content_dict['path'].lower() == f'{dir_baru[i]}\\.'.lower():
+                            current_GMT = gmtime()
+                            timestamp = calendar.timegm(current_GMT)
+                            date_time = datetime.datetime.fromtimestamp(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir_ada = False
@@ -139,6 +154,9 @@ def delete(target_hapus, current_dir=''):
                 if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
                     for content_dict in dir_content_baru[i]:
                         if content_dict['path'].lower() == current_dir.lower():
+                            current_GMT = gmtime()
+                            timestamp = calendar.timegm(current_GMT)
+                            date_time = datetime.datetime.fromtimestamp(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir = dir_baru
