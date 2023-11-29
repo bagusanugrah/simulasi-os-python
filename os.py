@@ -4,6 +4,7 @@ import datetime
 import database
 from time import sleep, gmtime
 
+spesifikasi = database.getSpesifikasi()
 perangkatKeras = database.getPerangkatKeras()
 osInfo = database.getOSInfo()
 users = database.getUsers()
@@ -327,6 +328,17 @@ def prosesPOST():
     sleep(2)
     os.system('cls')
 
+def showSpec():
+    hardware_names = list(spesifikasi.keys())
+    namaTerpanjang = dapatkanStringTerpanjang(hardware_names)
+
+    stringProses = f'{namaTerpanjang}   '
+
+    for key in spesifikasi:
+        hardware_name = samakanPanjangString(key, stringProses)
+        print(f'{hardware_name}:  {spesifikasi[key]}')
+    print()
+
 def startingOS():
     for i in range(4):
         stringTampil = 'Starting OS'
@@ -375,6 +387,8 @@ def standByCMD():
             delete(parsedInput[1], current_dir)
         elif parsedInput[0].lower() == 'shutdown':
             sistem_nyala = shutdown()
+        elif parsedInput[0].lower() == 'showspec':
+            showSpec()
 
 commands = [
     {

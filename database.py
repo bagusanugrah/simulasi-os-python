@@ -1,3 +1,14 @@
+def getSpesifikasi():
+    return {
+        'Motherboard': 'Asus H110M-K',
+        'CPU': 'Intel Core™ i7-7700K',
+        'Memory': 'V-GeN Platinum 16GB PC21300/2666Mhz',
+        'Storage': 'SSD V-Gen Platinum SATA III 512 GB',
+        'Graphic': 'Integrated graphics processor - Intel HD Graphics',
+        'Audio': 'Realtek ALC887 8-channel High Definition Audio CODEC',
+        'LAN': 'Realtek RTL8111H Gigabit LAN supports LANGuard'
+    }
+
 def getPerangkatKeras():
     return ['RAM', 'Harddisk Drive', 'CD ROM Drive', 'USB Port']
 
