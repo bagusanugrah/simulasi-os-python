@@ -5,6 +5,7 @@ import pytz
 import database
 from time import sleep, gmtime
 
+help = database.getHelp()
 zonawaktu = database.getTimezone()
 spesifikasi = database.getSpesifikasi()
 perangkatKeras = database.getPerangkatKeras()
@@ -375,6 +376,19 @@ def showSpec():
         print(f'{hardware_name}:  {spesifikasi[key]}')
     print()
 
+def showCommands():
+    command_names = list(help.keys())
+    namaTerpanjang = dapatkanStringTerpanjang(command_names)
+
+    stringProses = f'{namaTerpanjang}   '
+
+    for key in help:
+        command_name = samakanPanjangString(key, stringProses)
+        print(f'{command_name}   {help[key]}')
+    print()
+    print('Keterangan: Tanda kutip pada contoh hanya sebagai penjelas saja, inputkan perintah tanpa tanda kutip.')
+    print()
+
 def startingOS():
     for i in range(4):
         stringTampil = 'Starting OS'
@@ -429,13 +443,8 @@ def standByCMD():
             showtime()
         elif parsedInput[0].lower() == 'changetime':
             change_timezone()
-
-commands = [
-    {
-        'name': 'mkdir',
-        'function': mkdir
-    }
-]
+        elif parsedInput[0].lower() == 'help':
+            showCommands()
 
 def main():
     # prosesPOST()

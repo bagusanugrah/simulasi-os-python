@@ -1,3 +1,17 @@
+def getHelp():
+    return {
+        'help': 'Menampilkan perintah-perintah apa saja yang bisa digunakan.',
+        'dir': "Menampilkan semua folder dan file yang ada di suatu directory.",
+        'cd': "Membuka directory, contoh: 'cd Videos' atau 'cd ..'.",
+        'mkdir': "Membuat folder baru, contoh: 'mkdir Movie'.",
+        'rename': "Mengganti nama file atau folder, contoh: 'rename Movie Movies'.",
+        'delete': "Menghapus file atau folder, contoh: 'delete Movies'.",
+        'showspec': "Menampilkan spesifikasi perangkat keras pada sistem komputer.",
+        'showtime': "Menampilkan tanggal dan jam yang sedang berjalan.",
+        'changetime': 'Mengganti zona waktu.',
+        'shutdown': 'Mematikan sistem.'
+    }
+
 def getTimezone():
     gmt = []
 
