@@ -389,6 +389,16 @@ def showCommands():
     print('Keterangan: Tanda kutip pada contoh hanya sebagai penjelas saja, inputkan perintah tanpa tanda kutip.')
     print()
 
+def stringParser(inputan_string):
+    list_awal = list(inputan_string.split(' '))
+    list_baru = []
+
+    for i in range(len(list_awal)):
+        if list_awal[i] != ' ':
+            list_baru.append(list_awal[i])
+    
+    return list_baru
+
 def startingOS():
     for i in range(4):
         stringTampil = 'Starting OS'
@@ -423,28 +433,68 @@ def standByCMD():
         print(f'{current_dir}>', end='')
         perintah = input()
 
-        parsedInput = list(perintah.split(' '))
+        parsedInput = stringParser(perintah)
 
         if parsedInput[0].lower() == 'cd':
-            current_dir = cd(parsedInput[1], current_dir)
+            if len(parsedInput) < 2:
+                print('Berikan argumen pada perintah! Contoh: cd Videos')
+            elif len(parsedInput) > 2:
+                print('Kelebihan argumen! Perintah hanya membutuhkan satu argumen!')
+            else:
+                current_dir = cd(parsedInput[1], current_dir)
         elif parsedInput[0].lower() == 'dir':
-            show_all(current_dir)
+            if len(parsedInput) > 1:
+                print(f'Perintah {parsedInput[0]} tidak membutuhkan argumen sama sekali!')
+            else:
+                show_all(current_dir)
         elif parsedInput[0].lower() == 'mkdir':
-            mkdir(current_dir, parsedInput[1])
+            if len(parsedInput) < 2:
+                print('Berikan argumen pada perintah! Contoh: mkdir Projects')
+            elif len(parsedInput) > 2:
+                print('Kelebihan argumen! Perintah hanya membutuhkan satu argumen!')
+            else:
+                mkdir(current_dir, parsedInput[1])
         elif parsedInput[0].lower() == 'rename':
-            rename(parsedInput[1], parsedInput[2], current_dir)
+            if len(parsedInput) < 3:
+                print('Berikan dua argumen pada perintah! Contoh: rename Music Musics')
+            elif len(parsedInput) > 3:
+                print('Kelebihan argumen! Perintah hanya membutuhkan dua argumen!')
+            else:
+                rename(parsedInput[1], parsedInput[2], current_dir)
         elif parsedInput[0].lower() == 'delete':
-            delete(parsedInput[1], current_dir)
+            if len(parsedInput) < 2:
+                print('Berikan argumen pada perintah! Contoh: delete Videos')
+            elif len(parsedInput) > 2:
+                print('Kelebihan argumen! Perintah hanya membutuhkan satu argumen!')
+            else:
+                delete(parsedInput[1], current_dir)
         elif parsedInput[0].lower() == 'shutdown':
-            sistem_nyala = shutdown()
+            if len(parsedInput) > 1:
+                print(f'Perintah {parsedInput[0]} tidak membutuhkan argumen sama sekali!')
+            else:
+                sistem_nyala = shutdown()
         elif parsedInput[0].lower() == 'showspec':
-            showSpec()
+            if len(parsedInput) > 1:
+                print(f'Perintah {parsedInput[0]} tidak membutuhkan argumen sama sekali!')
+            else:
+                showSpec()
         elif parsedInput[0].lower() == 'showtime':
-            showtime()
+            if len(parsedInput) > 1:
+                print(f'Perintah {parsedInput[0]} tidak membutuhkan argumen sama sekali!')
+            else:
+                showtime()
         elif parsedInput[0].lower() == 'changetime':
-            change_timezone()
+            if len(parsedInput) > 1:
+                print(f'Perintah {parsedInput[0]} tidak membutuhkan argumen sama sekali!')
+            else:
+                change_timezone()
         elif parsedInput[0].lower() == 'help':
-            showCommands()
+            if len(parsedInput) > 1:
+                print(f'Perintah {parsedInput[0]} tidak membutuhkan argumen sama sekali!')
+            else:
+                showCommands()
+        else:
+            print(f'Perintah {parsedInput[0]} tidak dikenali!')
 
 def main():
     # prosesPOST()
