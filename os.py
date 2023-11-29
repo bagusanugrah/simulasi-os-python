@@ -28,7 +28,7 @@ def mkdir(parent_dir, nama_directory):
     current_GMT = gmtime()
     timestamp = calendar.timegm(current_GMT)
     date_time = datetime.datetime.fromtimestamp(timestamp)
-    
+
     new_dir = {
         'path': f'{parent_dir}\\{nama_directory}',
         'nama': nama_directory,
@@ -113,6 +113,7 @@ def delete(target_hapus, current_dir=''):
                                 dir = dir_baru
                                 dir_content = dir_content_baru
                                 return print('Hapus file/folder berhasil')
+            for i in range(len(dir_baru)):
                 if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
                     for content_dict in dir_content_baru[i]:
                         if content_dict['path'].lower() == current_dir.lower():
@@ -151,6 +152,7 @@ def delete(target_hapus, current_dir=''):
                                 dir = dir_baru
                                 dir_content = dir_content_baru
                                 return print('Hapus file/folder berhasil')
+            for i in range(len(dir_baru)):
                 if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
                     for content_dict in dir_content_baru[i]:
                         if content_dict['path'].lower() == current_dir.lower():
