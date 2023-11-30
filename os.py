@@ -1,3 +1,4 @@
+import os
 import calendar
 import datetime
 import pytz
@@ -398,19 +399,19 @@ def dapatkanStringTerpanjang(list):
 def prosesPOST():
     namaTerpanjang = dapatkanStringTerpanjang(perangkatKeras)
 
-    print("\x1b[H\x1b[2J", end="")
+    os.system('cls')
     for i in range(len(perangkatKeras)):
         stringProses = f'{perangkatKeras[i]}     '
         stringTerpanjang = f'{namaTerpanjang}     '
-        spasi = samakanPanjangString(stringProses, stringTerpanjang)
+        hardware_name = samakanPanjangString(stringProses, stringTerpanjang)
 
         for j in range(10,101,20):
-            print(f'{spasi}{j}%', end='\r')
+            print(f'{hardware_name}{j}%', end='\r')
             sleep(0.5)
-        print(f'{spasi}    ', end='')
+        print(f'{hardware_name}    ', end='')
         print('OK')
     sleep(2)
-    print("\x1b[H\x1b[2J", end="")
+    os.system('cls')
 
 def showSpec():
     hardware_names = list(spesifikasi.keys())
@@ -454,10 +455,10 @@ def startingOS():
             print(stringTampil, end='\r')
             stringTampil = stringTampil + '.'
             sleep(0.5)
-    print("\x1b[H\x1b[2J", end="")
+    os.system('cls')
 
 def shutdown():
-    print("\x1b[H\x1b[2J", end="")
+    os.system('cls')
     for i in range(4):
         stringTampil = 'Shutting down the system'
         print(f'{stringTampil}   ', end='\r')
@@ -471,7 +472,7 @@ def standByCMD():
     current_dir = dir[0]
     parsedInput = []
 
-    print("\x1b[H\x1b[2J", end="")
+    os.system('cls')
     showOSInfo(osInfo)
     print()
 
