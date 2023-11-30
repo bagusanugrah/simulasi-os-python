@@ -531,6 +531,11 @@ def standByCMD():
                 print(f'Perintah {parsedInput[0]} tidak membutuhkan argumen sama sekali!')
             else:
                 showtime()
+        elif parsedInput[0].lower() == 'clearscr':
+            if len(parsedInput) > 1:
+                print(f'Perintah {parsedInput[0]} tidak membutuhkan argumen sama sekali!')
+            else:
+                sistem_nyala = False
         elif parsedInput[0].lower() == 'changetime':
             if len(parsedInput) > 1:
                 print(f'Perintah {parsedInput[0]} tidak membutuhkan argumen sama sekali!')
@@ -543,6 +548,9 @@ def standByCMD():
                 showCommands()
         else:
             print(f'Perintah {parsedInput[0]} tidak dikenali!')
+
+    if parsedInput[0].lower() == 'clearscr':
+        return standByCMD()
 
 def main():
     # prosesPOST()

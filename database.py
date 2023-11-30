@@ -9,6 +9,7 @@ def getHelp():
         'showspec': "Menampilkan spesifikasi perangkat keras pada sistem komputer.",
         'showtime': "Menampilkan tanggal dan jam yang sedang berjalan.",
         'changetime': 'Mengganti zona waktu.',
+        'clearscr': 'Membersihkan layar.',
         'shutdown': 'Mematikan sistem.'
     }
 
