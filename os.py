@@ -442,9 +442,9 @@ def stringParser(inputan_string):
     list_baru = []
 
     for i in range(len(list_awal)):
-        if list_awal[i] != ' ':
+        if list_awal[i] != '':
             list_baru.append(list_awal[i])
-    
+
     return list_baru
 
 def startingOS():
