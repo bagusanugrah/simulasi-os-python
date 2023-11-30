@@ -65,6 +65,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\.',
                 'nama': '.',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '07:46 AM',
                 'tgl_update': '11/28/2023'
             },
@@ -72,6 +73,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\..',
                 'nama': '..',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '09:03 AM',
                 'tgl_update': '05/11/2023'
             },
@@ -79,6 +81,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Desktop',
                 'nama': 'Desktop',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '07:28 PM',
                 'tgl_update': '11/04/2023'
             },
@@ -86,6 +89,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Documents',
                 'nama': 'Documents',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '11:35 AM',
                 'tgl_update': '11/21/2023'
             },
@@ -93,6 +97,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Downloads',
                 'nama': 'Downloads',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '05:12 AM',
                 'tgl_update': '11/27/2023'
             },
@@ -100,6 +105,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Music',
                 'nama': 'Music',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': ' 09:21 AM',
                 'tgl_update': '11/08/2023'
             },
@@ -107,6 +113,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Pictures',
                 'nama': 'Pictures',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '10:15 AM',
                 'tgl_update': '11/24/2023'
             },
@@ -114,6 +121,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Videos',
                 'nama': 'Videos',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '10:13 AM',
                 'tgl_update': '11/26/2023'
             }
@@ -123,6 +131,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Desktop\\.',
                 'nama': '.',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '07:28 PM',
                 'tgl_update': '11/04/2023'
             },
@@ -130,6 +139,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Desktop\\..',
                 'nama': '..',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '07:46 AM',
                 'tgl_update': '11/28/2023'
             }
@@ -139,6 +149,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Documents\\.',
                 'nama': '.',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '11:35 AM',
                 'tgl_update': '11/21/2023'
             },
@@ -146,8 +157,25 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Documents\\..',
                 'nama': '..',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '07:46 AM',
                 'tgl_update': '11/28/2023'
+            },
+            {
+                'path': f'C:\\Users\\{getUsers()[0]}\\Documents\\simulasi-os.py',
+                'nama': 'simulasi-os.py',
+                'jenis': '     ',
+                'ukuran': 23184,
+                'jam_update': '08:31 AM',
+                'tgl_update': '11/20/2023'
+            },
+            {
+                'path': f'C:\\Users\\{getUsers()[0]}\\Documents\\simulasi-os.exe',
+                'nama': 'simulasi-os.exe',
+                'jenis': '     ',
+                'ukuran': 6982341,
+                'jam_update': '11:35 AM',
+                'tgl_update': '11/21/2023'
             }
         ],
         [
@@ -155,6 +183,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Downloads\\.',
                 'nama': '.',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '05:12 AM',
                 'tgl_update': '11/27/2023'
             },
@@ -162,8 +191,33 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Downloads\\..',
                 'nama': '..',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '07:46 AM',
                 'tgl_update': '11/28/2023'
+            },
+            {
+                'path': f'C:\\Users\\{getUsers()[0]}\\Downloads\\intellij.exe',
+                'nama': 'intellij.exe',
+                'jenis': '     ',
+                'ukuran': 792065498,
+                'jam_update': '05:12 AM',
+                'tgl_update': '11/27/2023'
+            },
+            {
+                'path': f'C:\\Users\\{getUsers()[0]}\\Downloads\\pycharm.exe',
+                'nama': 'pycharm.exe',
+                'jenis': '     ',
+                'ukuran': 533543254,
+                'jam_update': '10:18 AM',
+                'tgl_update': '11/26/2023'
+            },
+            {
+                'path': f'C:\\Users\\{getUsers()[0]}\\Downloads\\xampp.exe',
+                'nama': 'xampp.exe',
+                'jenis': '     ',
+                'ukuran': 152421675,
+                'jam_update': '12:27 AM',
+                'tgl_update': '11/26/2023'
             }
         ],
         [
@@ -171,6 +225,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Music\\.',
                 'nama': '.',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': ' 09:21 AM',
                 'tgl_update': '11/08/2023'
             },
@@ -178,6 +233,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Music\\..',
                 'nama': '..',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '07:46 AM',
                 'tgl_update': '11/28/2023'
             }
@@ -187,6 +243,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Pictures\\.',
                 'nama': '.',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '10:15 AM',
                 'tgl_update': '11/24/2023'
             },
@@ -194,6 +251,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Pictures\\..',
                 'nama': '..',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '07:46 AM',
                 'tgl_update': '11/28/2023'
             }
@@ -203,6 +261,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Videos\\.',
                 'nama': '.',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '10:13 AM',
                 'tgl_update': '11/26/2023'
             },
@@ -210,6 +269,7 @@ def get_dir_content():
                 'path': f'C:\\Users\\{getUsers()[0]}\\Videos\\..',
                 'nama': '..',
                 'jenis': '<DIR>',
+                'ukuran': 0,
                 'jam_update': '07:46 AM',
                 'tgl_update': '11/28/2023'
             }

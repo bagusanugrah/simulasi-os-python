@@ -71,6 +71,7 @@ def mkdir(parent_dir, nama_directory):
         'path': f'{parent_dir}\\{nama_directory}',
         'nama': nama_directory,
         'jenis': '<DIR>',
+        'ukuran': 0,
         'jam_update': date_time.strftime("%I:%M %p"),
         'tgl_update': date_time.strftime("%m/%d/%Y")
     }
@@ -87,6 +88,7 @@ def mkdir(parent_dir, nama_directory):
                     'path': f'{parent_dir}\\.',
                     'nama': '.',
                     'jenis': '<DIR>',
+                    'ukuran': 0,
                     'jam_update': date_time.strftime("%I:%M %p"),
                     'tgl_update': date_time.strftime("%m/%d/%Y")
                 },
@@ -94,6 +96,7 @@ def mkdir(parent_dir, nama_directory):
                     'path': f'{parent_dir}\\..',
                     'nama': '..',
                     'jenis': '<DIR>',
+                    'ukuran': 0,
                     'jam_update': date_time.strftime("%I:%M %p"),
                     'tgl_update': date_time.strftime("%m/%d/%Y")
                 }
@@ -321,11 +324,33 @@ def cd(dir_path, current_dir=''):
                 return current_dir
         
 def show_all(current_dir):
+    list_sementara = []
+    jumlah_file = 0
+    total_ukuran = 0
+    stringProses = ''
+
     for i in range(len(dir)):
         if dir[i].lower() == current_dir.lower():
             for content_dict in dir_content[i]:
-                print(f"{content_dict['tgl_update']}  {content_dict['jam_update']}  {content_dict['jenis']}  {content_dict['nama']}")
+                if content_dict['jenis'] == '     ':
+                    jumlah_file = jumlah_file + 1
+                
+                total_ukuran = total_ukuran + content_dict['ukuran']
+                list_sementara.append(f"{content_dict['tgl_update']}  {content_dict['jam_update']}  {content_dict['jenis']}  {content_dict['ukuran']}")
+
+    stringTerpanjang = dapatkanStringTerpanjang(list_sementara)
+
+    for i in range(len(dir)):
+        if dir[i].lower() == current_dir.lower():
+            for content_dict in dir_content[i]:
+                if content_dict['ukuran'] == 0:
+                    stringProses = f"{content_dict['tgl_update']}  {content_dict['jam_update']}  {content_dict['jenis']}   "
+                else:
+                    stringProses = f"{content_dict['tgl_update']}  {content_dict['jam_update']}  {content_dict['jenis']}  {content_dict['ukuran']}"
+                dataTampil = samakanPanjangString(stringProses, stringTerpanjang)
+                print(f"{dataTampil}  {content_dict['nama']}")
     
+    print(f'{jumlah_file} File(s)      {total_ukuran} Bytes')
     print()
 
 def showOSInfo(dict):
