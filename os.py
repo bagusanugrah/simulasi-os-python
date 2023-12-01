@@ -3,6 +3,7 @@ import calendar
 import datetime
 import pytz
 import database
+import getpass
 from time import sleep, gmtime
 
 help = database.getHelp()
@@ -11,6 +12,7 @@ spesifikasi = database.getSpesifikasi()
 perangkatKeras = database.getPerangkatKeras()
 osInfo = database.getOSInfo()
 users = database.getUsers()
+datalogin = database.getDataLogin()
 dir = database.getDirectory()
 dir_content = database.get_dir_content()
 
@@ -47,6 +49,49 @@ def change_timezone():
             return print('Zona waktu berhasil diganti')
     
     print(f'Inputan salah! {inputan_zona} bukan angka dari list zona waktu!')
+
+def setLoggedInUser(user_index):
+    global users
+    global dir
+    global dir_content
+
+    users = users[user_index]
+    dir = dir[user_index]
+    dir_content = dir_content[user_index]
+
+def autentikasiUser():
+    belum_login = True
+
+    while belum_login:
+        os.system('cls')
+        print('User Login')
+        username = input('username: ')
+        password = getpass.getpass('password: ')
+        user_ketemu = False
+        password_benar = False
+
+        for i in range(len(datalogin)):
+            if username == datalogin[i]['username']:
+                user_ketemu = True
+                user_index = i
+        
+        if user_ketemu:
+            for user in datalogin:
+                if user['username'] == username:
+                    if password == user['password']:
+                        password_benar = True
+                
+            if password_benar:
+                setLoggedInUser(user_index)
+                belum_login = False
+            else:
+                print()
+                print('Password salah! Silahkan login kembali.')
+                sleep(2)
+        else:
+            print()
+            print(f'Tidak ada user dengan username {username}! Silahkan login kembali.')
+            sleep(2)
 
 def kembaliKeParentDir(current_dir, letak_parent):
     splittedString = list(current_dir.split('\\'))
@@ -555,6 +600,7 @@ def standByCMD():
 def main():
     prosesPOST()
     startingOS()
+    autentikasiUser()
     standByCMD()
 
 main()
