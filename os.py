@@ -40,11 +40,11 @@ def change_timezone():
     for i in range(len(zonawaktu)):
         print(f'{i+1}. {zonawaktu[i]}')
     
-    inputan_zona = input('Masukkan zona waktu [1-27]: ')
+    inputan_zona = input('Masukkan zona waktu [1-28]: ')
 
     print()
     for i in range(len(zonawaktu)):
-        if inputan_zona == str(i):
+        if str(int(inputan_zona)-1) == str(i):
             zona = zonawaktu[i]
             return print('Zona waktu berhasil diganti')
     
