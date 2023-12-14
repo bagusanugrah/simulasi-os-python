@@ -213,7 +213,7 @@ def rename(target_rename, nama_baru, current_dir=''):
                                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             if not dir_ada:
-                                return print('Rename file/folder berhasil')
+                                return print('Rename folder berhasil')
             for i in range(len(dir)):
                 if dir[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
                     for content_dict in dir_content[i]:
@@ -223,7 +223,7 @@ def rename(target_rename, nama_baru, current_dir=''):
                             date_time = time(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
-                            return print('Rename file/folder berhasil')
+                            return print('Rename folder berhasil')
         if dir[i].lower() == f'{current_dir}\\{target_rename}'.lower():
             for i in range(len(dir)):
                 if dir[i].lower() == f'{current_dir}\\{target_rename}'.lower():
@@ -265,7 +265,7 @@ def rename(target_rename, nama_baru, current_dir=''):
                                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             if not dir_ada:
-                                return print('Rename file/folder berhasil')
+                                return print('Rename folder berhasil')
             for i in range(len(dir)):
                 if dir[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
                     for content_dict in dir_content[i]:
@@ -275,7 +275,7 @@ def rename(target_rename, nama_baru, current_dir=''):
                             date_time = time(timestamp)
                             content_dict['jam_update'] = date_time.strftime("%I:%M %p")
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
-                            return print('Rename file/folder berhasil')
+                            return print('Rename folder berhasil')
         if dir[i].lower() != f'{current_dir}\\{target_rename}'.lower() and i == len(dir)-1:
             print(f'Folder {target_rename} tidak ada!')
             return current_dir
@@ -312,7 +312,7 @@ def delete(target_hapus, current_dir=''):
                             if not dir_ada:
                                 dir = dir_baru
                                 dir_content = dir_content_baru
-                                return print('Hapus file/folder berhasil')
+                                return print('Hapus folder berhasil')
             for i in range(len(dir_baru)):
                 if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
                     for content_dict in dir_content_baru[i]:
@@ -324,7 +324,7 @@ def delete(target_hapus, current_dir=''):
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir = dir_baru
                             dir_content = dir_content_baru
-                            return print('Hapus file/folder berhasil')
+                            return print('Hapus folder berhasil')
         if dir[i].lower() == f'{current_dir}\\{target_hapus}'.lower():
             for i in range(len(dir)):
                 if dir[i].lower() != f'{current_dir}\\{target_hapus}'.lower():
@@ -351,7 +351,7 @@ def delete(target_hapus, current_dir=''):
                             if not dir_ada:
                                 dir = dir_baru
                                 dir_content = dir_content_baru
-                                return print('Hapus file/folder berhasil')
+                                return print('Hapus folder berhasil')
             for i in range(len(dir_baru)):
                 if dir_baru[i].lower() == kembaliKeParentDir(current_dir, '..').lower():
                     for content_dict in dir_content_baru[i]:
@@ -363,7 +363,7 @@ def delete(target_hapus, current_dir=''):
                             content_dict['tgl_update'] = date_time.strftime("%m/%d/%Y")
                             dir = dir_baru
                             dir_content = dir_content_baru
-                            return print('Hapus file/folder berhasil')
+                            return print('Hapus folder berhasil')
         if dir[i].lower() != f'{current_dir}\\{target_hapus}'.lower() and i == len(dir)-1:
             print(f'Folder {target_hapus} tidak ada!')
             return current_dir
